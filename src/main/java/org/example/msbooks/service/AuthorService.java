@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import static org.example.msbooks.constant.ErrorMessages.AUTHOR_NOT_FOUND;
 import static org.example.msbooks.constant.ErrorMessages.BOOK_NOT_FOUND;
+import static org.example.msbooks.enums.AuthorStatus.ACTIVE;
 import static org.example.msbooks.enums.AuthorStatus.INACTIVE;
 
 @Service
@@ -55,7 +56,7 @@ public class AuthorService {
     }
 
     private AuthorEntity fetchEntityIfExist(Long id) {
-        var foundEntity = authorRepository.findById(id);
+        var foundEntity = authorRepository.findByIdAndStatus(id,ACTIVE);
         if (foundEntity.isEmpty()) {
             throw new AuthorNotFoundException(AUTHOR_NOT_FOUND);
 
